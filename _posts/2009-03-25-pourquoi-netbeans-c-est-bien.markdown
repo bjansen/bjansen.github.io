@@ -5,7 +5,11 @@ date:   2009-03-25 15:16:00
 categories: Netbeans
 ---
 
-<p>C'est un fait avéré, Netbeans c'est mieux qu'Eclipse. <small>(comment ça, un troll tout poilu ?)</small>. Pas plus tard qu'il y a une minute, j'en ai refait l'heureuse expérience. Agacé de voir une série de getters/setters dans ma classe, qui sont triviaux à comprendre mais qui prennent de la place, j'ai voulu utiliser l'<a href="http://wiki.netbeans.org/FaqCustomCodeFolds">editor folding</a>, propre à Netbeans (je crois, du moins). Ça consiste juste en deux commentaires autour du code que l'on veut <i>folder</i> (euh... comment traduit-on ça en français, déjà...) :
+<p>C'est un fait avéré, Netbeans c'est mieux qu'Eclipse. <small>(comment ça, un troll tout poilu ?)</small>. Pas plus tard qu'il y a une minute, j'en ai refait l'heureuse expérience. Agacé de voir une série de getters/setters dans ma classe, qui sont triviaux à comprendre mais qui prennent de la place, j'ai voulu utiliser l'<a href="http://wiki.netbeans.org/FaqCustomCodeFolds">editor folding</a>, propre à Netbeans (je crois, du moins).
+
+<!-- more -->
+
+Ça consiste juste en deux commentaires autour du code que l'on veut <i>folder</i> (euh... comment traduit-on ça en français, déjà...) :
 
 {% highlight java %}
 // <editor-fold defaultstate="collapsed" desc="getters and setters">

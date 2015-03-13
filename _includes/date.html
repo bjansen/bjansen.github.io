@@ -1,0 +1,25 @@
+{% if post.date != null %}
+	{% assign mydate = post.date %}
+{% else %}
+	{% assign mydate = page.date %}
+{% endif %}
+
+{% if post.language == 'en' or page.language == 'en' %}
+	Posted on {{ mydate | date_to_long_string }} in English
+{% else %}
+	Publié le {{ mydate | date: '%d' }} {% assign m = mydate | date: "%-m" %}
+	{% case m %}
+	  {% when '1' %}janvier
+	  {% when '2' %}février
+	  {% when '3' %}mars
+	  {% when '4' %}avril
+	  {% when '5' %}mai
+	  {% when '6' %}juin
+	  {% when '7' %}juillet
+	  {% when '8' %}août
+	  {% when '9' %}septembre
+	  {% when '10' %}octobre
+	  {% when '11' %}novembre
+	  {% when '12' %}décembre
+	{% endcase %} {{ mydate | date: '%Y' }} en français
+{% endif %}

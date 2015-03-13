@@ -3,6 +3,7 @@ layout: post
 title:  "Security holes in symfony apps"
 date:   2008-12-01 21:52:00
 categories: symfony
+language: en
 ---
 <p>symfony 1.2 was just released, and came along with a brand new advent calendar. <a href="http://www.symfony-project.org/jobeet/1_2/en/01">The first day</a> mentions two ways to set up your web server to host a symfony project. <a href="http://www.symfony-project.org/jobeet/1_2/en/01#Web Server Setup: The ugly Way">The ugly way</a> seems to be very... ugly and crazy, putting your app directly in your webserver's root folder allows anyone to access all the files. But this security hole can be easily found in 'real' apps, as well as a few others...</p>
 <p>
