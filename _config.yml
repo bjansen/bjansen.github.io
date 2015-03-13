@@ -9,5 +9,5 @@ twitter_username: BastienJansen
 github_username:  bjansen
 
 # Build settings
-highlighter: true
+highlighter: pygments
 markdown: kramdown
