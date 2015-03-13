@@ -1,0 +1,13 @@
+# Site settings
+title: The developer's den
+email: --
+description: > # this means to ignore newlines until "baseurl:"
+  --
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://bjansen.github.io" # the base hostname & protocol for your site
+twitter_username: BastienJansen
+github_username:  bjansen
+
+# Build settings
+highlighter: rouge
+markdown: kramdown
