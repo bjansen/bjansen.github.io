@@ -126,7 +126,7 @@ code {
     font-size: 15px;
     border: 1px solid $grey-color-light;
     border-radius: 5px;
-    background-color: #2B2B2B;
+    background-color: #eef;
     line-height: normal;
 }
 
@@ -138,11 +138,13 @@ code {
 pre {
     padding: 8px 12px;
     overflow-x: scroll;
+    background-color: #2B2B2B;
 
     > code {
         border: 0;
         padding-right: 0;
         padding-left: 0;
+        background-color: #2B2B2B;
     }
 }
 
