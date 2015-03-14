@@ -29,7 +29,26 @@ $content-width:    800px;
 $on-palm:          600px;
 $on-laptop:        800px;
 
-
+@font-face {
+    font-family: "Meslo LG";
+    src: url("/fonts/MesloLGMDZ-Regular.ttf");
+}
+@font-face {
+    font-family: "Meslo LG";
+    src: url("/fonts/MesloLGMDZ-Bold.ttf");
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Meslo LG";
+    src: url("/fonts/MesloLGMDZ-BoldItalic.ttf");
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: "Meslo LG";
+    src: url("/fonts/MesloLGMDZ-Italic.ttf");
+    font-style: italic;
+}
 
 // Using media queries with like this:
 // @include media-query($on-palm) {

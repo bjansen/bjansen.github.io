@@ -125,12 +125,14 @@ pre,
 code {
     font-size: 15px;
     border: 1px solid $grey-color-light;
-    border-radius: 3px;
-    background-color: #eef;
+    border-radius: 5px;
+    background-color: #2B2B2B;
+    line-height: normal;
 }
 
 code {
     padding: 1px 5px;
+    font-family: "Menlo", "Meslo LG", monospace;
 }
 
 pre {
