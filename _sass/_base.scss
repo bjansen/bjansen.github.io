@@ -37,6 +37,12 @@ ul, ol, dl, figure,
     margin-bottom: 0;
 }
 
+.post {
+    h1, h2, h3, h4, h5, h6 {
+        color: #333;
+    }
+}
+
 /**
  * Images
  */
@@ -201,4 +207,9 @@ pre {
             fill: $grey-color;
         }
     }
+}
+
+.footnotes {
+    line-height: 0;
+    font-size: $small-font-size;
 }
