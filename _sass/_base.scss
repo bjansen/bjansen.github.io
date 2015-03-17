@@ -112,7 +112,9 @@ a {
 blockquote {
     color: $grey-color;
     border-left: 4px solid $grey-color-light;
-    padding-left: $spacing-unit / 2;
+    background: url(/images/quote.svg) top left no-repeat;
+    background-size: 24px;
+    padding-left: 30px;
     font-size: 18px;
     letter-spacing: -1px;
     font-style: italic;
@@ -210,6 +212,14 @@ pre {
 }
 
 .footnotes {
-    line-height: 0;
+    line-height: 1;
     font-size: $small-font-size;
+    border-top: 1px dotted #C3C3C3;
+    margin-top: 20px;
+    padding-top: 10px;
+    font-style: italic;
+
+    ol, p {
+        margin-bottom: 5px;
+    }
 }
