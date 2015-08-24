@@ -10,7 +10,11 @@ github_username:  bjansen
 
 # Build settings
 highlighter: pygments
-markdown: kramdown
+markdown: redcarpet
+
+redcarpet:
+  extensions:
+    - footnotes
 
 defaults:
   -
