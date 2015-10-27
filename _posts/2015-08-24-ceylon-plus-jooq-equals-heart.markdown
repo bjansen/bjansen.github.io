@@ -5,6 +5,7 @@ date:   2015-08-24 19:25:00
 categories: Ceylon
 background: "/images/ceylon-jooq/bg.jpg"
 language: en
+use_js_highlighter: true
 ---
 
 So you want to try Ceylon on a new side project, but don't feel like writing yet another boring command line application? In this article, I will show you how to set up a new Ceylon application that uses jOOQ seamlessly. We will see how easy it is to use Ceylon's Java interoperability, and how easy it is to customize jOOQ and adapt it to Ceylon's conventions. The sample application will use an existing database.
@@ -24,7 +25,7 @@ Since jOOQ provides Maven dependencies, we will use Ceylon's Maven support. In t
 
 Now we can add dependencies to jOOQ, to Java and to `ceylon.interop.java` since the code will be generated in Java:
 
-{% highlight ceylon %}
+<pre><code data-language="ceylon">
 module gen.example.jooq "1.0.0" {
     shared import "org.jooq:jooq" "3.6.0";
     shared import "org.jooq:jooq-meta" "3.6.0";
@@ -35,18 +36,18 @@ module gen.example.jooq "1.0.0" {
     import javax.annotation "8";
     import ceylon.interop.java "1.1.1";
 }
-{% endhighlight %}
+</code></pre>
 
 Some of the imports are `shared` because they will be reused in `example.jooq`, whereas the others are here for internal use only. The other `module.ceylon` will look like this:
 
-{% highlight ceylon %}
+<pre><code data-language="ceylon">
 module example.jooq "1.0.0" {
     import gen.example.jooq "1.0.0";
 
     import "mysql:mysql-connector-java" "5.1.36";
     import "com.zaxxer:HikariCP-java6" "2.3.9";
 }
-{% endhighlight %}
+</code></pre>
 
 Note that we also import a MySQL driver and [HikariCP](http://brettwooldridge.github.io/HikariCP/) to connect to our MySQL database.
 
@@ -99,7 +100,7 @@ The only missing pieces are `package.ceylon` files that are needed in each subpa
 
 We are now ready to produce actual code to query the database. To do that, we need to configure a data source. We will be using an `object`, since this is obviously a singleton:
 
-{% highlight ceylon %}
+<pre><code data-language="ceylon">
 object dataSource extends HikariDataSource() {
     
     shared void setup() {
@@ -111,11 +112,11 @@ object dataSource extends HikariDataSource() {
         dataSource = mysqlDS;
     }
 }
-{% endhighlight %}
+</code></pre>
 
 We can now query the database, for example the table `Actors`:
 
-{% highlight ceylon %}
+<pre><code data-language="ceylon">
 shared void run() {
     dataSource.setup();
     
@@ -127,13 +128,13 @@ shared void run() {
         print("Actor ``actor.firstName`` ``actor.lastName``");
     }
 }
-{% endhighlight %}
+</code></pre>
 
 We can easily iterate over a `Result<ActorRecord>` because it implements `java.lang.Iterable`, which can be adapted to a `ceylon.language.Iterable` using `CeylonIterable`.
 
 Let's see how more complex cases work:
 
-{% highlight ceylon %}
+<pre><code data-language="ceylon">
 value overdueRentals = dsl.select(
         concat(customer.\iLAST_NAME, 
                DSL.val(javaString(" ")),
@@ -157,11 +158,11 @@ for (rental in CeylonIterable(overdueRentals)) {
     print("Customer ``rental.value1()``, phone ``rental.value2()``,
             title ``rental.value3()``");
 }
-{% endhighlight %}
+</code></pre>
 
 This time, I used import aliases to transform things like `Rental.\IRENTAL` into a user-friendly `rental`:
 
-{% highlight ceylon %}
+<pre><code data-language="ceylon">
 import gen.example.jooq.tables {
     Actor,
     Customer {
@@ -172,7 +173,7 @@ import gen.example.jooq.tables {
     },
     ...
 }
-{% endhighlight %}
+</code></pre>
 
 ## Making things more Ceylon-friendly
 
@@ -212,7 +213,7 @@ And use it in `jooq-config.xml`:
 
 After having regenerated our classes, the previous sample code feels more natural and ceylonic:
 
-{% highlight ceylon %}
+<pre><code data-language="ceylon">
 ...
 .from(rental)
 .join(customer).on(rental.customerId.eq(customer.customerId))
@@ -221,19 +222,19 @@ After having regenerated our classes, the previous sample code feels more natura
 .join(film).on(inventory.filmId.eq(film.filmId))
 .where(rental.returnDate.isNull())
 ...
-{% endhighlight %}
+</code></pre>
 
 ### Using Ceylon types (`ceylon.language.*`)
 
 You may have noticed that things can get ugly when we have to "force" the use of a Java type instead of a Ceylon type, for example `String`:
 
-{% highlight ceylon %}
+<pre><code data-language="ceylon">
 dsl.select(
     concat(customer.lastName, 
            val(javaString(" ")),
            customer.firstName)
 )
-{% endhighlight %}
+</code></pre>
 
 `javaString` is a function that transforms a `ceylon.language.String` into a `java.lang.String`. Without it, jOOQ won't recognize Ceylon types and instead will throw a nasty
 
@@ -241,7 +242,7 @@ dsl.select(
 
 Luckily for us, jOOQ also allows us to use our very own [custom types](http://www.jooq.org/doc/3.6/manual/sql-execution/fetching/data-type-conversion/) during [code generation](http://www.jooq.org/doc/3.6/manual/code-generation/custom-data-types/). We just have to implement `org.jooq.Converter`, then configure when to use this converter. Let's see how we can map SQL strings to `ceylon.language.String` instances:
 
-{% highlight ceylon %}
+<pre><code data-language="ceylon">
 import java.lang {
     JString = String,
 }
@@ -255,7 +256,7 @@ shared class StringConverter() satisfies Converter<JString, String> {
     
     shared actual Class<String> toType() => javaClass<String>();
 }
-{% endhighlight %}
+</code></pre>
 
 Next, we have to let the generator know that we would like to use this converter for every string in the database (in `jooq-config.xml`):
 

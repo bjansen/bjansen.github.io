@@ -24,3 +24,4 @@ defaults:
     values:
       language: "fr"
       excerpt_separator: "<!-- more -->"
+      use_js_highlighter: false

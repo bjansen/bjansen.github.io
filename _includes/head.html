@@ -7,8 +7,21 @@
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
+  {% if page.use_js_highlighter == true %}<link rel="stylesheet" href="{{ "/css/darkula.css" | prepend: site.baseurl }}">{% endif %}
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
 
   <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+  
+  {% if page.use_js_highlighter == true %}
+  <script src="{{ "/js/rainbow.min.js" | prepend: site.baseurl }}"></script>
+  <script src="{{ "/js/ceylon.js" | prepend: site.baseurl }}"></script>
+  <script>
+  Rainbow.onHighlight(function(block, language) {
+    if (block.innerHTML.substring(0, 1) === '\n') {
+      block.innerHTML = block.innerHTML.substring(1);
+    } 
+  });
+  </script>
+  {% endif %}
 </head>
