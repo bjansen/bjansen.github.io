@@ -122,7 +122,7 @@ shared void run() {
     
     value dsl = DSL.using(dataSource, SQLDialect.\iMYSQL);
     
-    Result<ActorRecord> actors = dsl.selectFrom(Actor.\iACTOR).fetch();
+    Result&lt;ActorRecord&gt; actors = dsl.selectFrom(Actor.\iACTOR).fetch();
     
     for (actor in CeylonIterable(actors)) {
         print("Actor ``actor.firstName`` ``actor.lastName``");
@@ -130,7 +130,7 @@ shared void run() {
 }
 </code></pre>
 
-We can easily iterate over a `Result<ActorRecord>` because it implements `java.lang.Iterable`, which can be adapted to a `ceylon.language.Iterable` using `CeylonIterable`.
+We can easily iterate over a `Result&lt;ActorRecord&gt;` because it implements `java.lang.Iterable`, which can be adapted to a `ceylon.language.Iterable` using `CeylonIterable`.
 
 Let's see how more complex cases work:
 
@@ -247,14 +247,14 @@ import java.lang {
     JString = String,
 }
 
-shared class StringConverter() satisfies Converter<JString, String> {
-    shared actual String? from(JString? t) => if (exists t) then t.string else null;
+shared class StringConverter() satisfies Converter&lt;JString, String&gt; {
+    shared actual String? from(JString? t) =&gt; if (exists t) then t.string else null;
     
-    shared actual Class<JString> fromType() => javaClass<JString>();
+    shared actual Class&lt;JString&gt; fromType() =&gt; javaClass&lt;JString&gt;();
     
-    shared actual JString? to(String? u) => if (exists u) then javaString(u) else null;
+    shared actual JString? to(String? u) =&gt; if (exists u) then javaString(u) else null;
     
-    shared actual Class<String> toType() => javaClass<String>();
+    shared actual Class&lt;String&gt; toType() =&gt; javaClass&lt;String&gt;();
 }
 </code></pre>
 
@@ -293,11 +293,11 @@ Until version 3.6.x, jOOQ forces us to use an [identity](http://www.jooq.org/doc
 
 - if we replace `java.lang.Integer` with `ceylon.language.Integer`, the generated table classes will not compile because
     
-	`Identity<R, ? extends Number> getIdentity()`
+	`Identity&lt;R, ? extends Number&gt; getIdentity()`
 
 	will be overriden with 
 	
-    `Identity<R, ceylon.language.Integer> getIdentity()`
+    `Identity&lt;R, ceylon.language.Integer&gt; getIdentity()`
     
     and `ceylon.language.Integer` does not extend `Number`
 
@@ -312,4 +312,3 @@ This article showed that integrating jOOQ in your Ceylon project requires very l
 The source code for this article is available in a [sample project](https://github.com/bjansen/ceylon-jooq-example) on GitHub.
 
 If you plan on integrating jOOQ in your own Ceylon project, I also started [ceylon-jooq-adapter](https://github.com/bjansen/ceylon-jooq-adapter) which allows easy integration of jOOQ in your Ceylon project. It contains what was covered in this article, but other features will be added in the future.
-
