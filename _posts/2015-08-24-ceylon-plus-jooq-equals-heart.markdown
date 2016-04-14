@@ -130,7 +130,7 @@ shared void run() {
 }
 </code></pre>
 
-We can easily iterate over a `Result&lt;ActorRecord&gt;` because it implements `java.lang.Iterable`, which can be adapted to a `ceylon.language.Iterable` using `CeylonIterable`.
+We can easily iterate over a `Result<ActorRecord>` because it implements `java.lang.Iterable`, which can be adapted to a `ceylon.language.Iterable` using `CeylonIterable`.
 
 Let's see how more complex cases work:
 
@@ -293,11 +293,11 @@ Until version 3.6.x, jOOQ forces us to use an [identity](http://www.jooq.org/doc
 
 - if we replace `java.lang.Integer` with `ceylon.language.Integer`, the generated table classes will not compile because
     
-	`Identity&lt;R, ? extends Number&gt; getIdentity()`
+	`Identity<R, ? extends Number> getIdentity()`
 
 	will be overriden with 
 	
-    `Identity&lt;R, ceylon.language.Integer&gt; getIdentity()`
+    `Identity<R, ceylon.language.Integer> getIdentity()`
     
     and `ceylon.language.Integer` does not extend `Number`
 
