@@ -9,12 +9,8 @@ twitter_username: BastienJansen
 github_username:  bjansen
 
 # Build settings
-highlighter: pygments
-markdown: redcarpet
-
-redcarpet:
-  extensions:
-    - footnotes
+highlighter: rouge
+markdown: kramdown
 
 defaults:
   -

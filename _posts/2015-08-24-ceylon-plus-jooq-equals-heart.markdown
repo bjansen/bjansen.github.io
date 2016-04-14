@@ -238,7 +238,9 @@ dsl.select(
 
 `javaString` is a function that transforms a `ceylon.language.String` into a `java.lang.String`. Without it, jOOQ won't recognize Ceylon types and instead will throw a nasty
 
-	Type class ceylon.language.String is not supported in dialect DEFAULT
+{% highlight text %}
+Type class ceylon.language.String is not supported in dialect DEFAULT
+{% endhighlight %}
 
 Luckily for us, jOOQ also allows us to use our very own [custom types](http://www.jooq.org/doc/3.6/manual/sql-execution/fetching/data-type-conversion/) during [code generation](http://www.jooq.org/doc/3.6/manual/code-generation/custom-data-types/). We just have to implement `org.jooq.Converter`, then configure when to use this converter. Let's see how we can map SQL strings to `ceylon.language.String` instances:
 
