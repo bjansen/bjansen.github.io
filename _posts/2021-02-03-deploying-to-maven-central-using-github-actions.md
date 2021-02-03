@@ -14,13 +14,15 @@ would be a good opportunity to automate the release process using [GitHub Action
 I came across several outdated tutorials that create `settings.xml` and import GPG keys manually, but as of Feb. 2021 most
 of this is not needed anymore, thanks to [recent changes in the `setup-java` action][setup-java-gpg].
 
+<!-- more -->
+
 ## Prerequisites
 
 From now on, I will assume that you already know how to [deploy on Maven Central via Sonatype OSSRH][ossrh]. This means
 you created an account on Sonatype's Jira, your local `settings.xml` is already configured and your `pom.xml` has a
 `<plugins>` section that looks more or less like this:
 
-```xml
+{% highlight xml %}
 <build>
     <plugins>
         ...
@@ -64,25 +66,25 @@ you created an account on Sonatype's Jira, your local `settings.xml` is already 
         </build>
     </profile>
 </profiles>
-```
+{% endhighlight %}
 
 ## Entering GitHub Actions
 
 Java [Actions workflows][workflow] often use a `setup-java` action which... well... sets up Java in the build runner:
 
-```yaml
+{% highlight yaml %}
 ...
     - name: Set up JDK 11
       uses: actions/setup-java@v1
       with:
         java-version: 11
-```
+{% endhighlight %}
 
 I thought this action was only used to download a JDK, but it turns out it can do more than that: it also knows
 how to set up the runner to [publish artifacts on Maven Central][publish-central] (or any `<distributionManagement>` 
 configured in your `pom.xml`, for that matter):
 
-```yaml
+{% highlight yaml %}
 jobs:
   build:
 
@@ -114,12 +116,12 @@ jobs:
         MAVEN_USERNAME: maven_username123
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-```
+{% endhighlight %}
 
 As explained in the readme, the second invocation of `actions/setup-java@v1` will overwrite the runner's 
 `settings.xml` with your Sonatype credentials and GPG passphrase, using environment variables:
 
-```xml
+{% highlight xml %}
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
@@ -135,7 +137,7 @@ As explained in the readme, the second invocation of `actions/setup-java@v1` wil
     </server>
   </servers>
 </settings>
-```
+{% endhighlight %}
 
 The private GPG key stored in the `MAVEN_GPG_PRIVATE_KEY` secret will also be imported in a GPG keychain, allowing
 `maven-gpg-plugin` to sign your artifacts correctly.
@@ -150,7 +152,7 @@ in the readme:
 * to avoid a `gpg: signing failed: Inappropriate ioctl for device` error, you need to [configure `maven-gpg-plugin`][ioctl]
 like this:
 
-```xml
+{% highlight xml %}
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-gpg-plugin</artifactId>
@@ -164,7 +166,7 @@ like this:
     </configuration>
     ...
 </plugin>
-```
+{% endhighlight %}
 
 ## Final note
 
